@@ -33,6 +33,8 @@ function AccountCtrl($scope, $resource, $routeParams, routeService, $cookies, $l
     /***********
      * PROFILE *
      **********/
+
+
     if ($location.url().indexOf("profile") != -1) {
         $scope.profile = true;
 
@@ -51,9 +53,12 @@ function AccountCtrl($scope, $resource, $routeParams, routeService, $cookies, $l
         }
     };
 
+
+
     /***********
      * ACCOUNT *
      **********/
+
 
     /**
      * Loading all accounts for the logged in User
@@ -74,11 +79,11 @@ function AccountCtrl($scope, $resource, $routeParams, routeService, $cookies, $l
         if (!$scope.newAccountForm.$invalid) {
             //call the serverApi for persisting a new Account
             Account.save({'user_id':$cookies.auth_key}, $scope.newAccount, function (account) {
-                //Step 1: Clear the newAccount to reset the form
+                //Clear the newAccount to reset the form
                 $scope.newAccount = null;
-                //Step 2: Set the selected Account in the scope to the newly created one
+                //Set the selected Account in the scope to the newly created one
                 $scope.selectAccount(account);
-                //Step 3: Add the newly created Account to the Account List
+                //Add the newly created Account to the Account List
                 $scope.accountList.push(account);
             });
         }
@@ -91,13 +96,20 @@ function AccountCtrl($scope, $resource, $routeParams, routeService, $cookies, $l
         Account.update({'user_id':$cookies.auth_key, 'id':$scope.selectedAccount._id, 'account':$scope.selectedAccount});
     }
 
+    /*
+     * Removing an existing Account
+     */
     $scope.removeAccount = function () {
+        //only proceed if the user clicks yes
         if (confirm("Löschen?")) {
-
+            //cache the id of the account, to remove it from the array after successful deletion in the db
             var id = $scope.selectedAccount._id;
             Account.delete({ 'user_id':$cookies.auth_key, 'id':$scope.selectedAccount._id }, function () {
+                //Clear the selected account in the scope
                 $scope.selectedAccount = null;
+                //Clear the associated Transactions in the current scope
                 $scope.transactions = null;
+                //Remove the deleted Account from the Account List in the current Scope
                 $scope.accountList.removeById(id);
             });
         }

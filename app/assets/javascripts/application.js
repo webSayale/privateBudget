@@ -1,0 +1,13 @@
+//= require jquery
+//= require lib/bootstrap
+//= require lib/angular
+//= require lib/angular-resource
+//= require lib/angular-cookies
+//= require utility
+//= require App
+//= require services
+//= require filters
+//= require widgets
+//= require ApplicationCtrl
+//= require account/AccountCtrl
+//= require user/UserController

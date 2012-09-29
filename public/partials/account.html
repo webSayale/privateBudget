@@ -1,0 +1,103 @@
+<div ng-controller="AccountCtrl" ng-show="profile">
+    <form name="userForm" class="form-horizontal well">
+        <fieldset>
+            <div class="control-group">
+                <label class="control-label" for="firstname">Vorname</label>
+
+                <div class="controls">
+                    <input type="text" name="firstname" id="firstname" ng-model="user.firstname" required/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="lastname">Nachname</label>
+
+                <div class="controls">
+                    <input type="text" name="lastname" id="lastname" ng-model="user.lastname" required/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="email">Email</label>
+
+                <div class="controls">
+                    <input type="email" name="email" id="email" ng-model="user.email" required/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="password">Passwort</label>
+
+                <div class="controls">
+                    <input type="password" name="password" id="password" ng-model="user.password" required/>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button ng-click="updateProfile(user._id)" class="btn btn-primary">Speichern</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<script type="text/ng-template" id="inline-edit.html">
+    <div>
+        <input type="text" on-enter="save()" on-esc="cancel()" ng-model="model" ng-show="editMode" required="required">
+        <span ng-hide="editMode" ng-click="edit()">{{model}}</span>
+    </div>
+</script>
+
+<div ng-controller="AccountCtrl" ng-show="accounts">
+
+
+    <div class="row well">
+        <ul class="nav nav-pills">
+            <li class="dropdown">
+                <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#">Meine Konten <b
+                        class="caret"></b></a>
+                <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+                    <li>
+                        <form name="newAccountForm" class="form-horizontal">
+                            <input type="text" name="name" id="name" ng-model="newAccount.name" placeholder="Neues Konto"
+                                   required ng-enter="createAccount()"/>
+                        </form>
+                    </li>
+                    <li ng-repeat="account in accountList">
+                        <a ng-click="selectAccount(account)">{{account.name}}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <form name="selectedAccountForm">
+            <h2 inline-edit="selectedAccount.name" on-save="updateAccount()" on-cancel="log('CANCEL', value)"></h2>
+        </form>
+
+        <form name="newTransactionForm" class="form-horizontal well" ng-hide="selectedAccount == undefined">
+            <input type="text" name="transactionName" id="transactionName" ng-model="transaction.name"
+                   placeholder="Name" required/>
+            <input type="text" name="transactionAmount" id="transactionAmount" ng-model="transaction.amount"
+                   placeholder="Betrag" required/>
+            <button ng-click="createTransaction()" class="btn btn-primary">Hinzufügen</button>
+        </form>
+
+        <div class="row well-small" ng-repeat="transaction in selectedAccount.transactions">
+            <div class="span5" inline-edit="transaction.name" on-save="updateTransaction(transaction)"
+                 on-cancel="log('CANCEL', value)"></div>
+            <div class="span5" inline-edit="transaction.amount" required="true" on-save="updateTransaction(transaction)"
+                 on-cancel="log('CANCEL', value)"></div>
+            <div class="span1">
+                <button ng-click="removeTransaction(transaction)" class="btn btn-primary">Löschen</button>
+            </div>
+        </div>
+
+
+        <button ng-click="removeAccount()" class="btn btn-primary" ng-hide="selectedAccount == undefined">Konto
+            entfernen
+        </button>
+
+
+    </div>
+
+
+</div>
+
+

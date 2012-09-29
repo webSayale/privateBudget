@@ -1,0 +1,30 @@
+<div class="row" style="height: 50px;">
+    <div class="span10">
+        <input type="text" ng-model="search" class="search-query" placeholder="Suchbegriff eingeben">
+    </div>
+    <div class="span2">
+        <a href="#/users/new">Neuen User erstellen</a>
+    </div>
+</div>
+
+<div ng-controller="UserListCtrl">
+    <table class="table">
+        <tr ng-repeat="user in users | filter:search | orderBy:'lastname'">
+            <td>
+                <img src="/rails.png" class="img-polaroid">
+            </td>
+            <td>
+                <p>
+                    {{user.firstname}} {{user.lastname}}
+                </p>
+
+                <p>
+                    {{user.email}}
+                </p>
+            </td>
+            <td>
+                <a href="#/users/{{user._id}}" class="btn btn-primary">Bearbeiten</a>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,48 @@
+<div ng-controller="UserDetailCtrl">
+    <form name="userForm" class="form-horizontal well">
+        <fieldset>
+            <div class="control-group">
+                <label class="control-label" for="firstname">Vorname</label>
+
+                <div class="controls">
+                    <input type="text" name="firstname" id="firstname" ng-model="user.firstname" required/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="lastname">Nachname</label>
+
+                <div class="controls">
+                    <input type="text" name="lastname" id="lastname" ng-model="user.lastname" required/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="email">Email</label>
+
+                <div class="controls">
+                    <input type="email" name="email" id="email" ng-model="user.email" required/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="password">Passwort</label>
+
+                <div class="controls">
+                    <input type="password" name="password" id="password" ng-model="user.password" required/>
+                </div>
+            </div>
+
+            <!--<div class="control-group">-->
+                <!--<label class="control-label" for="password_confirmation">Email</label>-->
+
+                <!--<div class="controls">-->
+                    <!--<input type="password" name="password_confirmation" id="password_confirmation" ng-model="user.password_confirmation" required/>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="form-actions">
+                <button ng-click="saveOrUpdate(user._id)" class="btn btn-primary">Speichern</button>
+                <button ng-click="delete($index)" class="btn btn-danger" ng-show="isEdit">Löschen</button>
+                <a href="/#/users" class="btn btn-info">Zurück</a>
+            </div>
+        </fieldset>
+    </form>
+</div>

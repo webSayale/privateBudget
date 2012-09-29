@@ -85,7 +85,7 @@ function AccountCtrl($scope, $resource, $routeParams, routeService, $cookies, $l
     }
 
     /**
-     * Update a new Account.dd
+     * Update a new Account
      */
     $scope.updateAccount = function () {
         Account.update({'user_id':$cookies.auth_key, 'id':$scope.selectedAccount._id, 'account':$scope.selectedAccount});
